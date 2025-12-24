@@ -1,0 +1,16 @@
+:root {
+    /* Static colors */
+    --app-bg: #ffffff;
+
+    /* Team color definitions */
+    --lakers-primary: #552583;
+    --lakers-secondary: #FDB927;
+    --lakers-primary-font: #ffffff;
+    --lakers-secondary-font: #000000;
+    
+    /* Application color assignments */
+    --primary-bg: var(--lakers-primary);
+    --secondary-bg: var(--lakers-secondary);
+    --primary-font: var(--lakers-primary-font);
+    --secondary-font: var(--lakers-secondary-font);
+}
