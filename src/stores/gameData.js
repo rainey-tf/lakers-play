@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { getGameData } from '../apis/gamedata'
+import { getGameData } from '../apis/gameData'
 
 export const useGameData = defineStore('gameData', {
     state: () => ({
