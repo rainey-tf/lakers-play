@@ -1,4 +1,20 @@
 <template>
+    <v-alert
+      v-if="alertOpen"
+      position="fixed"
+      color="secondary"
+      height="100px"
+      class="ma-auto"
+    >
+      <div>
+        Merry Christmas, Spencer!
+      </div>
+      <v-btn
+        text="Close"
+        class="mt-5"
+        @click="alertOpen = false"
+      ></v-btn>
+    </v-alert>
     <v-card v-if="loaded" class="rounded-xl ma-1">
       <template v-if="!error">
         <v-card-title class="text-h1 bg-primary h-50 d-flex flex-column justify-space-around">
@@ -46,6 +62,8 @@ const gameDataStore = useGameData();
 const { upcomingGames, loaded: gameLoaded, error: gameError } = storeToRefs(gameDataStore);
 const { teams, selectedTeam, loaded: teamLoaded, error: teamError } = storeToRefs(teamDataStore);
 
+const alertOpen = ref(false);
+
 const teamName = ref('Lakers');
 const loaded = computed(() => {
   return teamLoaded.value && gameLoaded.value;
@@ -62,6 +80,12 @@ const error = computed(() => {
 
 // Call getGameData action when component is mounted
 onMounted(async () => {
+  // Check if today is December 25th
+  const today = new Date();
+  if (today.getMonth() === 11 && today.getDate() === 25) {
+    alertOpen.value = true;
+  }
+  
   await teamDataStore.loadTeamData();
   selectedTeam.value = teams.value.find(team => team.name === teamName.value);
   await gameDataStore.loadGameData(selectedTeam?.value?.id);
@@ -114,5 +138,14 @@ const heading = computed(() => {
         min-height: 600px;
         width: calc(100vw - 40px);
         max-width: 400px;
+    }
+
+    .v-alert {
+      z-index: 1;
+      top: 120px;
+      left: 0;
+      right: 0;
+      width: calc(100vw - 60px);
+      max-width: 380px;
     }
 </style>
