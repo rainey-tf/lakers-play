@@ -16,8 +16,13 @@ export const useGameData = defineStore('gameData', {
                 this.loaded = false
                 const { data } = await getGameData(teamId);
                 this.upcomingGames = data;
-            } catch {
-                this.error = "Error Loading Game Data";
+            } catch (error) {
+                if (error.status === 429) {
+                    this.error = "We requested data too many times. Wait a minute and then try again.";
+                }
+                else {
+                    this.error = "Error Loading Game Data";
+                }
             } finally {
                 this.loaded = true
             }

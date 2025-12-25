@@ -14,8 +14,12 @@ export const useTeamData = defineStore('teamData', {
                 this.loaded = false
                 const { data } = await getTeamData();
                 this.teams = data;
-            } catch {
-                this.error = "Error Loading Team Data";
+            } catch(error) {
+                if (error.status === 429) {
+                    this.error = "We requested data too many times. Wait a minute and then try again.";
+                } else {
+                    this.error = "Error Loading Team Data";
+                }
             } finally {
                 this.loaded = true
             }
