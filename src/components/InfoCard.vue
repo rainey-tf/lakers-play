@@ -27,6 +27,11 @@
         </v-card-text>
       </template>
     </v-card>
+    <v-progress-circular
+      v-else
+      color="primary"
+      indeterminate
+    ></v-progress-circular>
 </template>
 
 <script setup>
